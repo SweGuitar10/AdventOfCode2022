@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include <queue>
-#include <vector>
 
 int main()
 {
