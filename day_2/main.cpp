@@ -6,7 +6,6 @@
 
 #define CHOICES 3
 
-// Points per choice:
 // Rock = 1, Paper = 2, Scissors = 3
 // Loss = 0, Draw = 3, Win = 6
 // A, X = Rock; B, Y = Paper; C, Z = Scissors
@@ -26,20 +25,36 @@ int main()
 	};
 	int sum = 0;
 	
-	char choices[] = {'A', 'B', 'C'};
 
 	while (!file.eof())
 	{
 		// Get inputs
-		char opponent, player;
+		char opponent, outcome;
 		file.get(opponent);
 		file.get(); // discard empty space
-		file.get(player);
+		file.get(outcome);
 		file.get(); // discard empty space
 		
 
 		// Determine result
-		int opVal = rps[opponent], playVal = rps[player];
+		int opVal = rps[opponent], playVal;
+		
+		// Need loss
+		if(outcome == 'X')
+		{
+			playVal = 1 + (opVal + 4) % 3;	
+		}
+		// Need draw
+		else if(outcome == 'Y')
+		{
+			playVal = opVal;
+		}
+		// Need win
+		else if(outcome == 'Z')
+		{
+			playVal = 1 + (opVal + 3) % 3;
+		}
+
 		sum += playVal;
 
 		// player wins
