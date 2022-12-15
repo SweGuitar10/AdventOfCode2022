@@ -25,8 +25,9 @@ int main()
 		sum += std::stoi(line);
 		
 		// When next line starts with \n it's presumed to be empty
-		if (file.peek() == '\n' || file.peek() == EOF)
+		if (!std::isdigit(file.peek()) || file.peek() == EOF)
 		{
+			std::cout << line << std::endl;
 			elfCalories.push(sum);
 			sum = 0;
 			std::getline(file, line); // remove '\n'
