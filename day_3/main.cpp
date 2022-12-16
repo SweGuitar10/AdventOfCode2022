@@ -2,14 +2,27 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 int main()
 {
-	std::ifstream file("test_input.txt");
+	std::ifstream file("input.txt");
 	std::vector<char> items;
-	
+	std::vector<char> letters;
+	int prio = 1;
+
 	// setup priority values
-	
+	for (char c = 'a'; c <= 'z'; c++) 
+	{
+		letters.push_back(c);
+		prio++;
+	}
+
+	for (char c = 'A'; c <= 'Z'; c++) 
+	{
+		letters.push_back(c);
+		prio++;
+	}
 
 	while(!file.eof())
 	{
@@ -39,5 +52,14 @@ int main()
 	}
 
 	// Sum priority of items
-}
+	int sum = 0;
+	for (int i = 0; i < items.size(); i++) 
+	{
+		char c = items[i];
+		int in = std::distance(letters.begin(), std::find(letters.begin(), 
+					letters.end(), c)) + 1;
+		sum += in;
+	}
 
+	std::cout << "Sum of unique items: " << sum << std::endl;
+}
