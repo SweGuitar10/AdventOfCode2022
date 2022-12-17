@@ -8,9 +8,9 @@ int main(int argc, char** argv)
 	std::string filename = argv[1];
 	std::ifstream file(filename);
 	std::string line;
-	//std::vector<std::string> elves(2);
 
-	int sum = 0;
+	int fully = 0;
+	int overlap = 0;
 
 	while(!file.eof())
 	{
@@ -41,11 +41,25 @@ int main(int argc, char** argv)
 
 		
 		if((elf1val1 >= elf2val1 && elf1val2 <= elf2val2) ||
-			elf2val1 >= elf1val1 && elf2val2 <= elf1val2)
+			(elf2val1 >= elf1val1 && elf2val2 <= elf1val2))
 		{
-			sum++;
+			fully++;
+		}
+
+		for(int i = elf1val1; i <= elf1val2; i++)
+		{
+			for(int j = elf2val1; j <= elf2val2; j++)
+			{
+				if(i == j)
+				{
+					overlap++;
+					i = elf1val2;
+					j = elf2val2;
+				}
+			}
 		}
 	}
-	std::cout << "Total fully contained sections: " << sum <<std::endl;
+	std::cout << "Total fully contained sections: " << fully << std::endl;
+	std::cout << "Total overlapping sections: " << overlap  << std::endl;
 	return 0;
 }
